@@ -2,8 +2,8 @@
 default: cppcheck.xml hello_exec
 .PHONY: default clean
 
-cppcheck.xml: hello.cpp
-	cppcheck --xml --xml-version=2 --enable=all --inconclusive --language=c++ *.cpp >$@
+cppcheck.xml: hello.c
+	cppcheck --xml --xml-version=2 --enable=all --inconclusive --language=c *.cpp 2>$@
 
-hello_exec: hello.cpp
-	g++ hello.cpp -o hello_exec
+hello_exec: hello.c
+	gcc -Wall hello.c -o hello_exec
