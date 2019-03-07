@@ -19,6 +19,14 @@ node {
         checkout scm
     }
     stage('CommitCheck') {
-        sh 'git log --since="1 day ago" master'
+		changedFiles = []
+		for (changeLogSet in currentBuild.changeSets) {
+			for (entry in changeLogSet.getItems()) { // for each commit in the detected changes
+				for (file in entry.getAffectedFiles()) {
+					changedFiles.add(file.getPath()) // add changed file to list
+				}
+			}
+		}
+		echo "changed files : ${changedFiles}"
     }
 }
