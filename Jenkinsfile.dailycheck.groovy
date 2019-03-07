@@ -19,6 +19,6 @@ node {
         checkout scm
     }
     stage('CommitCheck') {
-        sh "git log --since='1 day ago' master"
+        sh 'git log --since="1 day ago" master'
     }
 }
