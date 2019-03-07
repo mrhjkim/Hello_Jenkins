@@ -16,7 +16,8 @@ node {
 					changedFiles.add(file.getPath()) // add changed file to list
 					changedFilesInCommit.add(file.getPath()) // add changed file to list
 				}
-				echo "user:${entry.getAuthorName()}, files:${changedFilesInCommit}"
+				authorName = entry.getAuthorName
+				echo "user:${authorName}, files:${changedFilesInCommit}"
 			}
 		}
 		echo "changed files : ${changedFiles}"
