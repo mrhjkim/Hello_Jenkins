@@ -11,10 +11,12 @@ node {
 		changedFiles = []
 		for (changeLogSet in currentBuild.changeSets) {
 			for (entry in changeLogSet.getItems()) { // for each commit in the detected changes
-				echo "commit : ${entry}"
+				changedFilesInCommit = []
 				for (file in entry.getAffectedFiles()) {
 					changedFiles.add(file.getPath()) // add changed file to list
+					changedFilesInCommit.add(file.getPath()) // add changed file to list
 				}
+				echo "user:${entry.getAuthorName}, files:${changedFilesInCommit}"
 			}
 		}
 		echo "changed files : ${changedFiles}"
