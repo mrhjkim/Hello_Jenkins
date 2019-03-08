@@ -19,7 +19,7 @@ node {
 					changedFiles.add(file.getPath()) // add changed file to list
 					changedFilesInCommit.add(file.getPath()) // add changed file to list
 				}
-				echo "commit by ${author}, ${log}, files:${changedFilesInCommit}"
+				echo "commit by ${author}, log:${log}, files:${changedFilesInCommit}"
 			}
 		}
 		echo "changed files : ${changedFiles}"
