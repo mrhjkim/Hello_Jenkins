@@ -17,5 +17,15 @@ pipeline {
 				checkout scm
 			}
 		}
+		stage('Build') {
+			steps {
+				sh 'make hello_exec'
+			}
+		}
+		stage('Install') {
+			steps {
+				sh 'make install'
+			}
+		}
 	}
 }

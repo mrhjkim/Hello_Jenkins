@@ -7,3 +7,5 @@ cppcheck.xml: hello.c
 
 hello_exec: hello.c
 	gcc -Wall hello.c -o hello_exec
+install:
+	cp hello_exec ${UASYS_HOME}
