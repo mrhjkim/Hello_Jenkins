@@ -8,7 +8,7 @@ pipeline {
 		stage('Preparation') { // for display purposes
 			steps {
 				echo "Current workspace : ${workspace}"
-				echo "${params.Greeting} World!"
+				echo "${params.Greeting} World!!"
 			}
 		}
 		stage('Checkout') {
