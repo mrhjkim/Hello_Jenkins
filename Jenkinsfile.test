@@ -23,8 +23,11 @@ pipeline {
 			}
 		}
 		stage('Install') {
+			when {
+				environment name: "INSTALL_ENABLED", value: "TRUE"
+			}
 			steps {
-				sh 'make install'
+				sh 'cp hello_exec $UASYS_HOME/'
 			}
 		}
 	}
