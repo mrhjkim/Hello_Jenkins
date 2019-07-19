@@ -24,7 +24,7 @@ pipeline {
 		}
 		stage('Install') {
 			when {
-				environment name: "INSTALL_ENABLED", value: "TRUE"
+				environment name: 'INSTALL_ENABLED', value: 'TRUE'
 			}
 			steps {
 				echo 'UASYS_HOME ${UASYS_HOME}'
