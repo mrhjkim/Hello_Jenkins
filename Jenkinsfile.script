@@ -15,31 +15,20 @@ node {
 	)
 	exws(extWorkspace) {
 		stage('Preparation') { // for display purposes
-			steps {
 				echo "Current workspace : ${workspace}"
 					echo "${params.Greeting} World!!!"
-			}
 		}
 		stage('Checkout') {
-			steps {
 				// Get some code from a Git repository
 				checkout scm
-			}
 		}
 		stage('Build') {
-			steps {
 				sh 'make hello_exec'
-			}
 		}
 		stage('Install') {
-			when {
-				environment name: 'INSTALL_ENABLED', value: 'TRUE'
-			}
-			steps {
 				echo 'UASYS_HOME ${UASYS_HOME}'
 					sh 'mkdir ${UASYS_HOME}/test'
 					sh 'cp hello_exec ${UASYS_HOME}/test'
-			}
 		}
 	}
 }
