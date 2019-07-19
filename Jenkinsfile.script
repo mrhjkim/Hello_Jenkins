@@ -1,0 +1,45 @@
+def run = selectRun 'pipeline_root_test'
+def extWorkspace = exwsAllocate selectedRun: run
+
+node {
+	properties(
+		[ 
+			parameters(
+				[
+				string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?'),
+				string(name: 'INSTALL_ENABLED', defaultValue: 'FALSE', description: 'Installation is needed?'),
+				string(name: 'UASYS_HOME', description: 'Installation directory')
+				]
+			)
+		]
+	)
+	exws(extWorkspace) {
+		stage('Preparation') { // for display purposes
+			steps {
+				echo "Current workspace : ${workspace}"
+					echo "${params.Greeting} World!!!"
+			}
+		}
+		stage('Checkout') {
+			steps {
+				// Get some code from a Git repository
+				checkout scm
+			}
+		}
+		stage('Build') {
+			steps {
+				sh 'make hello_exec'
+			}
+		}
+		stage('Install') {
+			when {
+				environment name: 'INSTALL_ENABLED', value: 'TRUE'
+			}
+			steps {
+				echo 'UASYS_HOME ${UASYS_HOME}'
+					sh 'mkdir ${UASYS_HOME}/test'
+					sh 'cp hello_exec ${UASYS_HOME}/test'
+			}
+		}
+	}
+}
