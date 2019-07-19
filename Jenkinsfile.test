@@ -27,7 +27,9 @@ pipeline {
 				environment name: "INSTALL_ENABLED", value: "TRUE"
 			}
 			steps {
-				sh 'cp hello_exec $UASYS_HOME/'
+				echo 'UASYS_HOME ${UASYS_HOME}'
+				sh 'mkdir ${UASYS_HOME}/test'
+				sh 'cp hello_exec ${UASYS_HOME}/test'
 			}
 		}
 	}
