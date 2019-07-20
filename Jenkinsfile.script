@@ -26,7 +26,7 @@ node {
 				sh 'make hello_exec'
 		}
 		stage('Install') {
-			if( '${env.INSTALL_ENABLED}' == 'TRUE') {
+			if( env.INSTALL_ENABLED == 'TRUE') {
 				echo 'UASYS_HOME ${UASYS_HOME}'
 					sh 'mkdir ${UASYS_HOME}/test'
 					sh 'cp hello_exec ${UASYS_HOME}/test'
