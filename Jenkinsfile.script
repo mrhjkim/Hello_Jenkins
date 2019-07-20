@@ -1,4 +1,7 @@
+stage('select root')
 def run = selectRun 'pipeline_root_test'
+
+stage('allocate workspace')
 def extWorkspace = exwsAllocate selectedRun: run
 
 node {
