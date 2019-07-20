@@ -1,8 +1,3 @@
-stage('select root')
-def run = selectRun 'pipeline_root_test'
-
-stage('allocate workspace')
-def extWorkspace = exwsAllocate selectedRun: run
 
 node {
 	properties(
@@ -17,6 +12,9 @@ node {
 			)
 		]
 	)
+	def customPath = 'pipeline_root_test/${UPSTREAM_BUILD_NUMBER}'
+	def extWorkspace = exwsAllocate diskPoolId: 'diskpool1', path: customPath
+
 	exws(extWorkspace) {
 		dir(env.UXLIB_SRC_HOME) {
 			stage('Preparation') { // for display purposes
