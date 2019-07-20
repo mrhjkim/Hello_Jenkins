@@ -12,7 +12,7 @@ node {
 				string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?'),
 				string(name: 'INSTALL_ENABLED', defaultValue: 'FALSE', description: 'Installation is needed?'),
 				string(name: 'UASYS_HOME', description: 'Installation directory'),
-				string(name: 'UXLIB_SRC_HOME', defaultValue: '.', description: 'Installation directory')
+				string(name: 'UXLIB_SRC_HOME', defaultValue: './', description: 'Installation directory')
 				]
 			)
 		]
