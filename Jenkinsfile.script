@@ -12,8 +12,8 @@ node {
 			)
 		]
 	)
-	def customPath = "pipeline_root_test/${UPSTREAM_BUILD_NUMBER}"
-	def extWorkspace = exwsAllocate diskPoolId: 'diskpool1', path: customPath
+	def run = selectRun job: 'pipeline_root_test', selector: buildNumber(UPSTREAM_BUILD_NUMBER)
+	def extWorkspace = exwsAllocate selectedRun: run
 
 	exws(extWorkspace) {
 		dir(env.UXLIB_SRC_HOME) {
