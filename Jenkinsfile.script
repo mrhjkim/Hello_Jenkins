@@ -12,7 +12,7 @@ node {
 			)
 		]
 	)
-	def customPath = 'pipeline_root_test/${UPSTREAM_BUILD_NUMBER}'
+	def customPath = 'pipeline_root_test/${env.UPSTREAM_BUILD_NUMBER}'
 	def extWorkspace = exwsAllocate diskPoolId: 'diskpool1', path: customPath
 
 	exws(extWorkspace) {
