@@ -11,28 +11,31 @@ node {
 				[
 				string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?'),
 				string(name: 'INSTALL_ENABLED', defaultValue: 'FALSE', description: 'Installation is needed?'),
-				string(name: 'UASYS_HOME', description: 'Installation directory')
+				string(name: 'UASYS_HOME', description: 'Installation directory'),
+				string(name: 'UXLIB_SRC_HOME', defaultValue: '.', description: 'Installation directory')
 				]
 			)
 		]
 	)
 	exws(extWorkspace) {
-		stage('Preparation') { // for display purposes
+		dir(env.UXLIB_SRC_HOME) {
+			stage('Preparation') { // for display purposes
 				echo "Current workspace : ${workspace}"
 					echo "${params.Greeting} World!!!"
-		}
-		stage('Checkout') {
+			}
+			stage('Checkout') {
 				// Get some code from a Git repository
 				checkout scm
-		}
-		stage('Build') {
+			}
+			stage('Build') {
 				sh 'make hello_exec'
-		}
-		stage('Install') {
-			if( env.INSTALL_ENABLED == 'TRUE') {
-				echo 'UASYS_HOME ${UASYS_HOME}'
-					sh 'mkdir ${UASYS_HOME}/test'
-					sh 'cp hello_exec ${UASYS_HOME}/test'
+			}
+			stage('Install') {
+				if( env.INSTALL_ENABLED == 'TRUE') {
+					echo 'UASYS_HOME ${UASYS_HOME}'
+						sh 'mkdir ${UASYS_HOME}/test'
+						sh 'cp hello_exec ${UASYS_HOME}/test'
+				}
 			}
 		}
 	}
