@@ -17,25 +17,33 @@ node {
 	//def run = selectRun job: 'pipeline_root_test', selector: [$class: 'SpecificRunSelector', buildNumber: params.upstream_build]
 	def extWorkspace = exwsAllocate selectedRun: run
 
+	stage('Preparation') { // for display purposes
+		echo "Current workspace : ${workspace}"
+			echo "${params.Greeting} World!!!"
+	}
+	stage('Checkout') {
+		// Get some code from a Git repository
+		checkout scm
+	}
+	stage('Build') {
+		sh 'make hello_exec'
+	}
 	exws(extWorkspace) {
 		dir(env.UXLIB_SRC_HOME) {
-			stage('Preparation') { // for display purposes
-				echo "Current workspace : ${workspace}"
-					echo "${params.Greeting} World!!!"
-			}
-			stage('Checkout') {
-				// Get some code from a Git repository
-				checkout scm
-			}
-			stage('Build') {
-				sh 'make hello_exec'
+			stage('Install Header') {
+				if( env.INSTALL_ENABLED == 'TRUE') {
+					 echo sh(returnStdout: true, script: 'env')
+					sh "mkdir include"
+					sh "cp ${env.WORKSPACE}/*.h include"
+				}
 			}
 		}
-		stage('Install') {
-			if( env.INSTALL_ENABLED == 'TRUE') {
-				 echo sh(returnStdout: true, script: 'env')
-				echo "UASYS_HOME ${env.UASYS_HOME}"
-				sh "cp ${env.UXLIB_SRC_HOME}/hello_exec ${env.UASYS_HOME}"
+		dir(env.UASYS_HOME) {
+			stage('Install bin') {
+				if( env.INSTALL_ENABLED == 'TRUE') {
+					sh "mkdir bin"
+					sh "cp ${env.WORKSPACE}/hello_exec bin"
+				}
 			}
 		}
 	}
