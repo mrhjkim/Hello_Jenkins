@@ -32,6 +32,7 @@ node {
 			}
 			stage('Install') {
 				if( env.INSTALL_ENABLED == 'TRUE') {
+					 echo sh(returnStdout: true, script: 'env')
 					echo 'UASYS_HOME ${env.UASYS_HOME}'
 					sh 'cp hello_exec ${env.UASYS_HOME}'
 				}
