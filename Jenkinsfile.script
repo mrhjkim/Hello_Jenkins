@@ -30,12 +30,12 @@ node {
 			stage('Build') {
 				sh 'make hello_exec'
 			}
-			stage('Install') {
-				if( env.INSTALL_ENABLED == 'TRUE') {
-					 echo sh(returnStdout: true, script: 'env')
-					echo "UASYS_HOME ${env.UASYS_HOME}"
-					sh "cp hello_exec ${env.UASYS_HOME}"
-				}
+		}
+		stage('Install') {
+			if( env.INSTALL_ENABLED == 'TRUE') {
+				 echo sh(returnStdout: true, script: 'env')
+				echo "UASYS_HOME ${env.UASYS_HOME}"
+				sh "cp ${env.UXLIB_SRC_HOME}/hello_exec ${env.UASYS_HOME}"
 			}
 		}
 	}
