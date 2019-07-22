@@ -12,7 +12,8 @@ node {
 			)
 		]
 	)
-	def run = selectRun job: 'pipeline_root_test', selector: buildNumber(UPSTREAM_BUILD_NUMBER)
+	//def run = selectRun job: 'pipeline_root_test', selector: buildNumber(UPSTREAM_BUILD_NUMBER)
+	def run = selectRun job: 'pipeline_root_test', selector: [$class: 'SpecificRunSelector', buildNumber: UPSTREAM_BUILD_NUMBER)]
 	def extWorkspace = exwsAllocate selectedRun: run
 
 	exws(extWorkspace) {
