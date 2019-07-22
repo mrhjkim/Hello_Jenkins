@@ -5,6 +5,7 @@ node {
 			parameters(
 				[
 				string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?'),
+				string(name: 'upstream_build', defaultValue: '0', description: 'How should I greet the world?'),
 				string(name: 'INSTALL_ENABLED', defaultValue: 'FALSE', description: 'Installation is needed?'),
 				string(name: 'UASYS_HOME', description: 'Installation directory'),
 				string(name: 'UXLIB_SRC_HOME', defaultValue: './', description: 'Installation directory')
@@ -13,7 +14,7 @@ node {
 		]
 	)
 	//def run = selectRun job: 'pipeline_root_test', selector: buildNumber(UPSTREAM_BUILD_NUMBER)
-	def run = selectRun job: 'pipeline_root_test', selector: [$class: 'SpecificRunSelector', buildNumber: UPSTREAM_BUILD_NUMBER]
+	def run = selectRun job: 'pipeline_root_test', selector: [$class: 'SpecificRunSelector', buildNumber: params.upstream_build]
 	def extWorkspace = exwsAllocate selectedRun: run
 
 	exws(extWorkspace) {
