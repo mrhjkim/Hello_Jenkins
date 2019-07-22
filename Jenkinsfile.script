@@ -26,6 +26,7 @@ node {
 		checkout scm
 	}
 	stage('Build') {
+		sh "ls -al ${env.UASYS_HOME}"
 		sh 'make hello_exec'
 	}
 	exws(extWorkspace) {
